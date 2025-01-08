@@ -1,2 +1,2 @@
 [workspace]
-members = ["core", "rcli_csv"]
+members = ["core", "rcli_csv", "rs_practise"]
