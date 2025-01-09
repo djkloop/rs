@@ -3,4 +3,9 @@ name = "rs_practise"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "rs_practise"
+path = "src/lib.rs"
+
 [dependencies]
+chrono = "0.4.39"

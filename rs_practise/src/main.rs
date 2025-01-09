@@ -33,7 +33,13 @@
 // mod if_let_demo;
 // mod while_let_demo;
 // mod modules_demo;
-mod modules_a;
+// mod modules_a;
+// mod test_a;
+// mod external_crates_demo;
+// mod external_modules_a;
+// mod user_input_demo;
+// mod user_input_a;
+mod demo_bill;
 fn main() {
     // struct_demo::struct_main();
     // tuple_demo::tuple_main();
@@ -70,5 +76,11 @@ fn main() {
     // if_let_demo::if_let_demo();
     // while_let_demo::while_let_demo();
     // modules_demo::modules_demo();
-    modules_a::modules_a();
+    // modules_a::modules_a();
+    // test_a::test_a();
+    // external_crates_demo::external_crates_demo();
+    // external_modules_a::external_modules_a();
+    // user_input_demo::user_input_demo();
+    // user_input_a::user_input_a();
+    demo_bill::demo_bill();
 }
