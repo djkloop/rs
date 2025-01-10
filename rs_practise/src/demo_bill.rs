@@ -28,6 +28,15 @@ impl Bills {
     pub fn remove(&mut self, name: &str) -> bool {
         self.inner.remove(name).is_some()
     }
+
+    pub fn update(&mut self, name: &str, amount: f64) -> bool {
+        if let Some(bill) = self.inner.get_mut(name) {
+            bill.amount = amount;
+            true
+        } else {
+            false
+        }
+    }
 }
 
 pub fn get_input() -> Option<String> {
@@ -70,10 +79,11 @@ mod menu {
             None => return,
         };
         println!("Please enter the bill amount: ");
-        let amount = get_bill_amount().unwrap_or(0.0);
-        let bill = Bill { name, amount };
-        bills.add(bill);
-        println!("Bill added successfully");
+        if let Some(amount) = get_bill_amount() {
+            let bill = Bill { name, amount };
+            bills.add(bill) ;
+            println!("Bill added successfully");
+        }
     }
 
     pub fn remove_bill(bills: &mut Bills) {
@@ -113,12 +123,32 @@ mod menu {
         println!("--------------------------------");
         println!();
     }
+
+    pub fn update_bill(bills: &mut Bills) {
+        println!("--------------------------------");
+        println!("Viewing all bills");
+        for bill in bills.get_all() {
+            println!();
+            println!("name = {:?}， amount = ${:?}", bill.name, bill.amount);
+        }
+        println!();
+        println!("--------------------------------");
+        println!("Please enter the bill name to edit: ");
+        let name = match get_input() {
+            Some(name) => name,
+            None => return,
+        };
+        println!("Please enter the new bill amount: ");
+        let amount = get_bill_amount().unwrap_or(0.0);
+        bills.update(&name, amount);
+    }
 }
 
 enum MainMenu {
     AddBill,
     ViewBill,
     RemoveBill,
+    EditBill,
     Quit,
 }
 
@@ -128,7 +158,8 @@ impl MainMenu {
             "1" => Some(Self::AddBill),
             "2" => Some(Self::ViewBill),
             "3" => Some(Self::RemoveBill),
-            "4" => Some(Self::Quit),
+            "4" => Some(Self::EditBill),
+            "5" => Some(Self::Quit),
             _ => None,
         }
     }
@@ -139,19 +170,20 @@ impl MainMenu {
         println!("1. Add bill");
         println!("2. View bills");
         println!("3. Remove bill");
-        println!("4. Quit manager (or press Ctrl+C to exit)");
+        println!("4. Edit bill");
+        println!("5. Quit manager (or press Ctrl+C to exit)");
         println!("");
         println!("Enter Selection: ");
     }
 }
 
-pub fn demo_bill() {
+fn run_program() -> Option<()> {
     let mut bills = Bills::new();
     let mut is_running = true;
 
     while is_running {
         MainMenu::show();
-        let input = get_input().expect("Failed to read line");
+        let input = get_input()?;
         match MainMenu::from_str(input.as_str()) {
             Some(MainMenu::AddBill) => {
                 menu::add_bill(&mut bills);
@@ -162,6 +194,9 @@ pub fn demo_bill() {
             Some(MainMenu::RemoveBill) => {
                 menu::remove_bill(&mut bills);
             }
+            Some(MainMenu::EditBill) => {
+                menu::update_bill(&mut bills);
+            }
             Some(MainMenu::Quit) => {
                 println!("Exiting...");
                 is_running = false;
@@ -171,4 +206,9 @@ pub fn demo_bill() {
             }
         }
     }
+    None
+}
+
+pub fn demo_bill() {
+    run_program();
 }
