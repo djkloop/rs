@@ -48,7 +48,8 @@
 // mod generic_structures_demo;
 // mod generic_structures_a;
 // mod trait_object_demo;
-mod trait_object_a;
+// mod trait_object_a;
+mod ownership_lifetime_demo;
 fn main() {
     // struct_demo::struct_main();
     // tuple_demo::tuple_main();
@@ -100,5 +101,6 @@ fn main() {
     // generic_structures_demo::generic_structures_demo();
     // generic_structures_a::generic_structures_a();
     // trait_object_demo::trait_object_demo();
-    trait_object_a::trait_object_a();
+    // trait_object_a::trait_object_a();
+    ownership_lifetime_demo::ownership_lifetime_demo();
 }
