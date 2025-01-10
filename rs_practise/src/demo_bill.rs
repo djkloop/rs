@@ -1,4 +1,4 @@
-use std::io;
+use std::{collections::HashMap, io};
 
 #[derive(Debug)]
 pub struct Bill {
@@ -7,20 +7,26 @@ pub struct Bill {
 }
 
 pub struct Bills {
-    inner: Vec<Bill>,
+    inner: HashMap<String, Bill>,
 }
 
 impl Bills {
     pub fn new() -> Self {
-        Self { inner: vec![] }
+        Self {
+            inner: HashMap::new(),
+        }
     }
 
     pub fn add(&mut self, bill: Bill) {
-        self.inner.push(bill);
+        self.inner.insert(bill.name.to_string(), bill);
     }
 
     pub fn get_all(&self) -> Vec<&Bill> {
-        self.inner.iter().collect()
+        self.inner.values().collect()
+    }
+
+    pub fn remove(&mut self, name: &str) -> bool {
+        self.inner.remove(name).is_some()
     }
 }
 
@@ -55,9 +61,7 @@ pub fn get_bill_amount() -> Option<f64> {
 }
 
 mod menu {
-    use crate::demo_bill::get_bill_amount;
-
-    use super::{get_input, Bill, Bills};
+    use crate::demo_bill::*;
 
     pub fn add_bill(bills: &mut Bills) {
         println!("Please enter the bill name: ");
@@ -70,6 +74,27 @@ mod menu {
         let bill = Bill { name, amount };
         bills.add(bill);
         println!("Bill added successfully");
+    }
+
+    pub fn remove_bill(bills: &mut Bills) {
+        println!("--------------------------------");
+        println!("Viewing all bills");
+        for bill in bills.get_all() {
+            println!();
+            println!("name = {:?}， amount = ${:?}", bill.name, bill.amount);
+            println!();
+        }
+        println!("--------------------------------");
+        println!("Please enter the bill name to remove: ");
+        let name = match get_input() {
+            Some(name) => name,
+            None => return,
+        };
+        if bills.remove(&name) {
+            println!("Bill removed successfully");
+        } else {
+            println!("Bill not found");
+        }
     }
 
     pub fn view_bills(bills: &Bills) {
@@ -93,6 +118,7 @@ mod menu {
 enum MainMenu {
     AddBill,
     ViewBill,
+    RemoveBill,
     Quit,
 }
 
@@ -101,7 +127,8 @@ impl MainMenu {
         match input {
             "1" => Some(Self::AddBill),
             "2" => Some(Self::ViewBill),
-            "3" => Some(Self::Quit),
+            "3" => Some(Self::RemoveBill),
+            "4" => Some(Self::Quit),
             _ => None,
         }
     }
@@ -110,8 +137,9 @@ impl MainMenu {
         println!("");
         println!("Welcome to Bill Manager");
         println!("1. Add bill");
-        println!("2. View bill");
-        println!("3. Quit manager (or press Ctrl+C to exit)");
+        println!("2. View bills");
+        println!("3. Remove bill");
+        println!("4. Quit manager (or press Ctrl+C to exit)");
         println!("");
         println!("Enter Selection: ");
     }
@@ -130,6 +158,9 @@ pub fn demo_bill() {
             }
             Some(MainMenu::ViewBill) => {
                 menu::view_bills(&bills);
+            }
+            Some(MainMenu::RemoveBill) => {
+                menu::remove_bill(&mut bills);
             }
             Some(MainMenu::Quit) => {
                 println!("Exiting...");
