@@ -39,7 +39,13 @@
 // mod external_modules_a;
 // mod user_input_demo;
 // mod user_input_a;
-mod demo_bill;
+// mod demo_bill;
+// mod trait_demo;
+// mod trait_a;
+// mod default_demo;
+// mod generic_func_demo;
+mod generic_func_a;
+
 fn main() {
     // struct_demo::struct_main();
     // tuple_demo::tuple_main();
@@ -82,5 +88,10 @@ fn main() {
     // external_modules_a::external_modules_a();
     // user_input_demo::user_input_demo();
     // user_input_a::user_input_a();
-    demo_bill::demo_bill();
+    // demo_bill::demo_bill();
+    // trait_demo::trait_demo();
+    // trait_a::trait_a();
+    // default_demo::default_demo();
+    // generic_func_demo::generic_func_demo();
+    generic_func_a::generic_func_a();
 }
