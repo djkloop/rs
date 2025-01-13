@@ -50,7 +50,10 @@
 // mod trait_object_demo;
 // mod trait_object_a;
 // mod ownership_lifetime_demo;
-mod lifetimes_structures_a;
+// mod lifetimes_structures_a;
+// mod lifetimes_functions_a;
+mod custom_error_demo;
+
 fn main() {
     // struct_demo::struct_main();
     // tuple_demo::tuple_main();
@@ -104,5 +107,7 @@ fn main() {
     // trait_object_demo::trait_object_demo();
     // trait_object_a::trait_object_a();
     // ownership_lifetime_demo::ownership_lifetime_demo();
-    lifetimes_structures_a::lifetimes_structures_a();
+    // lifetimes_structures_a::lifetimes_structures_a();
+    // lifetimes_functions_a::lifetimes_functions_a();
+    custom_error_demo::custom_error_demo();
 }
