@@ -52,7 +52,13 @@
 // mod ownership_lifetime_demo;
 // mod lifetimes_structures_a;
 // mod lifetimes_functions_a;
-mod custom_error_demo;
+// mod custom_error_demo;
+// mod const_demo;
+// mod new_type_demo;
+// mod new_type_a;
+// mod typestate_demo;
+// mod typestate_a;
+mod match_guards_a;
 
 fn main() {
     // struct_demo::struct_main();
@@ -109,5 +115,11 @@ fn main() {
     // ownership_lifetime_demo::ownership_lifetime_demo();
     // lifetimes_structures_a::lifetimes_structures_a();
     // lifetimes_functions_a::lifetimes_functions_a();
-    custom_error_demo::custom_error_demo();
+    // custom_error_demo::custom_error_demo();
+    // const_demo::const_demo();
+    // new_type_demo::new_type_demo();
+    // new_type_a::new_type_a();
+    // typestate_demo::typestate_demo();
+    // typestate_a::typestate_a();
+    match_guards_a::match_guards_a();
 }
